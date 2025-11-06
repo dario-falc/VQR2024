@@ -1,5 +1,14 @@
-from docplex.mp.model import Model
+import os
+import json
 import networkx as nx
+from docplex.mp.model import Model
+import re
+
+def sorted_alphanumeric(data):
+    convert = lambda text: int(text) if text.isdigit() else text.lower()
+    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
+    return sorted(data, key=alphanum_key)
+
 
 def init_graph(file_path):
     GENERATION_PARAMETERS = {}
@@ -43,12 +52,14 @@ def init_graph(file_path):
     return G, GRAPH_DATA, GENERATION_PARAMETERS
 
 
-def solve_instance(G, GRAPH_DATA, GENERATION_PARAMETERS):
+def solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS):
+    RESULTS = {}
+    
     n_r = GENERATION_PARAMETERS["Researcher"]
     n_p = GENERATION_PARAMETERS["Papers"]
     
     ## Modello
-    vqr_model = Model("VQR assignment")
+    vqr_model = Model(instance_name)
     
     ## Liste di ricercatori e papers
     researchers = ["R" + str(i) for i in range(n_r)]
@@ -75,7 +86,7 @@ def solve_instance(G, GRAPH_DATA, GENERATION_PARAMETERS):
     # Ogni paper può essere assegnato massimo ad solo ricercatore
     vqr_model.add_constraints((sum(x.get((r, p), 0) for r in researchers) <= 1
                                for p in papers),
-                              names="max_researchers_per_paper")
+                              names = "max_researchers_per_paper")
 
     # Il dipartimento deve fornire al più 2.5*n_r paper
     alpha = 2.5 * n_r
@@ -86,23 +97,50 @@ def solve_instance(G, GRAPH_DATA, GENERATION_PARAMETERS):
     obj_fn = sum(scores.get((r, p), 0) * x.get((r, p), 0) for r in researchers for p in papers)
     vqr_model.set_objective("max", obj_fn)
 
-    vqr_model.print_information()
+    # print("INFORMATION:")
+    # vqr_model.print_information()
     
     ## Soluzione
     vqr_model.solve()
     
-    print("STATUS:")
-    print(vqr_model.solve_details)
+    # print("STATUS:")
+    # print(vqr_model.solve_details)
     
-    vqr_model.print_solution()
+    # print("RESULTS:")
+    # vqr_model.print_solution()
+    
+    # RESULTS["graph"] = G
+    RESULTS["n_researchers"] = n_r
+    RESULTS["n_papers"] = n_p
+    RESULTS["num_var"] = vqr_model.number_of_variables
+    RESULTS["time"] = vqr_model.solve_details.time
+    RESULTS["deterministic_time"] = vqr_model.solve_details.deterministic_time
+    RESULTS["objective_value"] = vqr_model.objective_value
+    # RESULTS["solution"] = vqr_model.solution
+    
+    return RESULTS
 
 
 def main():
-    file_path = "data/VQR_50_200_0.30_0_10_4070.dat"
-    G, SCORED_EDGES, GENERATION_PARAMETERS = init_graph(file_path)
+    all_results = {}
+    solve_n_times = 1
     
-    solve_instance(G, SCORED_EDGES, GENERATION_PARAMETERS)
-
+    problem_instances = sorted_alphanumeric(os.listdir("data"))
+    for instance_name in problem_instances:
+        print(f"Evaluating instance: {instance_name}")    
+        file_path = os.path.join("data", instance_name)
+        
+        G, GRAPH_DATA, GENERATION_PARAMETERS = init_graph(file_path)
+        
+        instance_results = []
+        [instance_results.append(solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS)) for _ in range(solve_n_times)]
+        
+        # [print(elem) for elem in instance_results]
+        
+        all_results[instance_name] = instance_results
+    
+        with open("results.json", "w") as f:
+            json.dump(all_results, f, indent=3, separators=(',', ': '))
 
 
 if __name__ == "__main__":
