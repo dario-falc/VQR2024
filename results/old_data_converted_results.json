@@ -1,0 +1,272 @@
+{
+   "new_assegnamento_40_240_0_10_1930.dat": {
+      "n_researchers": 40,
+      "n_papers": 240,
+      "num_var": 315,
+      "status": "integer optimal solution",
+      "time": 0.014999999999417923,
+      "deterministic_time": 5.446925163269043,
+      "objective_value": 705.0
+   },
+   "new_assegnamento_40_400_0_10_9736.dat": {
+      "n_researchers": 40,
+      "n_papers": 400,
+      "num_var": 547,
+      "status": "integer optimal solution",
+      "time": 0.032000000000152795,
+      "deterministic_time": 8.83117389678955,
+      "objective_value": 774.0
+   },
+   "new_assegnamento_40_560_0_10_498.dat": {
+      "n_researchers": 40,
+      "n_papers": 560,
+      "num_var": 717,
+      "status": "integer optimal solution",
+      "time": 0.0,
+      "deterministic_time": 4.863386154174805,
+      "objective_value": 799.0
+   },
+   "new_assegnamento_40_720_0_10_2619.dat": {
+      "n_researchers": 40,
+      "n_papers": 720,
+      "num_var": 957,
+      "status": "integer optimal solution",
+      "time": 0.01599999999962165,
+      "deterministic_time": 6.726141929626465,
+      "objective_value": 841.0
+   },
+   "new_assegnamento_40_880_0_10_9245.dat": {
+      "n_researchers": 40,
+      "n_papers": 880,
+      "num_var": 1147,
+      "status": "integer optimal solution",
+      "time": 0.016000000000531145,
+      "deterministic_time": 7.348024368286133,
+      "objective_value": 862.0
+   },
+   "new_assegnamento_60_360_0_10_8740.dat": {
+      "n_researchers": 60,
+      "n_papers": 360,
+      "num_var": 657,
+      "status": "integer optimal solution",
+      "time": 0.01599999999962165,
+      "deterministic_time": 6.105314254760742,
+      "objective_value": 1079.0
+   },
+   "new_assegnamento_60_600_0_10_3224.dat": {
+      "n_researchers": 60,
+      "n_papers": 600,
+      "num_var": 1049,
+      "status": "integer optimal solution",
+      "time": 0.032000000000152795,
+      "deterministic_time": 19.7158842086792,
+      "objective_value": 1159.0
+   },
+   "new_assegnamento_60_840_0_10_3961.dat": {
+      "n_researchers": 60,
+      "n_papers": 840,
+      "num_var": 1476,
+      "status": "integer optimal solution",
+      "time": 0.03099999999994907,
+      "deterministic_time": 26.090270042419434,
+      "objective_value": 1236.0
+   },
+   "new_assegnamento_60_1080_0_10_4135.dat": {
+      "n_researchers": 60,
+      "n_papers": 1080,
+      "num_var": 1930,
+      "status": "integer optimal solution",
+      "time": 0.03099999999994907,
+      "deterministic_time": 18.233323097229004,
+      "objective_value": 1286.0
+   },
+   "new_assegnamento_60_1320_0_10_8761.dat": {
+      "n_researchers": 60,
+      "n_papers": 1320,
+      "num_var": 2069,
+      "status": "integer optimal solution",
+      "time": 0.04699999999957072,
+      "deterministic_time": 32.00512504577637,
+      "objective_value": 1301.0
+   },
+   "new_assegnamento_80_480_0_10_9521.dat": {
+      "n_researchers": 80,
+      "n_papers": 480,
+      "num_var": 1030,
+      "status": "integer optimal solution",
+      "time": 0.03099999999994907,
+      "deterministic_time": 20.753296852111816,
+      "objective_value": 1443.0
+   },
+   "new_assegnamento_80_800_0_10_4255.dat": {
+      "n_researchers": 80,
+      "n_papers": 800,
+      "num_var": 1642,
+      "status": "integer optimal solution",
+      "time": 0.032000000000152795,
+      "deterministic_time": 31.40703010559082,
+      "objective_value": 1592.0
+   },
+   "new_assegnamento_80_1120_0_10_5705.dat": {
+      "n_researchers": 80,
+      "n_papers": 1120,
+      "num_var": 2207,
+      "status": "integer optimal solution",
+      "time": 0.03099999999994907,
+      "deterministic_time": 21.993309020996094,
+      "objective_value": 1671.0
+   },
+   "new_assegnamento_80_1440_0_10_601.dat": {
+      "n_researchers": 80,
+      "n_papers": 1440,
+      "num_var": 3218,
+      "status": "integer optimal solution",
+      "time": 0.04699999999957072,
+      "deterministic_time": 31.704720497131348,
+      "objective_value": 1714.0
+   },
+   "new_assegnamento_80_1760_0_10_8638.dat": {
+      "n_researchers": 80,
+      "n_papers": 1760,
+      "num_var": 3859,
+      "status": "integer optimal solution",
+      "time": 0.10900000000037835,
+      "deterministic_time": 71.14592266082764,
+      "objective_value": 1752.0
+   },
+   "new_assegnamento_100_600_0_10_169.dat": {
+      "n_researchers": 100,
+      "n_papers": 600,
+      "num_var": 1615,
+      "status": "integer optimal solution",
+      "time": 0.032000000000152795,
+      "deterministic_time": 16.05243968963623,
+      "objective_value": 1829.0
+   },
+   "new_assegnamento_100_1000_0_10_3257.dat": {
+      "n_researchers": 100,
+      "n_papers": 1000,
+      "num_var": 2746,
+      "status": "integer optimal solution",
+      "time": 0.046000000000276486,
+      "deterministic_time": 24.818284034729004,
+      "objective_value": 2029.0
+   },
+   "new_assegnamento_100_1400_0_10_2084.dat": {
+      "n_researchers": 100,
+      "n_papers": 1400,
+      "num_var": 3712,
+      "status": "integer optimal solution",
+      "time": 0.07799999999951979,
+      "deterministic_time": 35.176429748535156,
+      "objective_value": 2128.0
+   },
+   "new_assegnamento_100_1800_0_10_5649.dat": {
+      "n_researchers": 100,
+      "n_papers": 1800,
+      "num_var": 4668,
+      "status": "integer optimal solution",
+      "time": 0.10899999999946886,
+      "deterministic_time": 86.08298587799072,
+      "objective_value": 2165.0
+   },
+   "new_assegnamento_100_2200_0_10_905.dat": {
+      "n_researchers": 100,
+      "n_papers": 2200,
+      "num_var": 5834,
+      "status": "integer optimal solution",
+      "time": 0.06300000000010186,
+      "deterministic_time": 56.83060646057129,
+      "objective_value": 2200.0
+   },
+   "new_assegnamento_120_720_0_10_460.dat": {
+      "n_researchers": 120,
+      "n_papers": 720,
+      "num_var": 2170,
+      "status": "integer optimal solution",
+      "time": 0.06300000000010186,
+      "deterministic_time": 44.24544334411621,
+      "objective_value": 2216.0
+   },
+   "new_assegnamento_120_1200_0_10_5288.dat": {
+      "n_researchers": 120,
+      "n_papers": 1200,
+      "num_var": 3784,
+      "status": "integer optimal solution",
+      "time": 0.04699999999957072,
+      "deterministic_time": 35.989686012268066,
+      "objective_value": 2421.0
+   },
+   "new_assegnamento_120_1680_0_10_3247.dat": {
+      "n_researchers": 120,
+      "n_papers": 1680,
+      "num_var": 5489,
+      "status": "integer optimal solution",
+      "time": 0.06300000000010186,
+      "deterministic_time": 48.360676765441895,
+      "objective_value": 2548.0
+   },
+   "new_assegnamento_120_2160_0_10_9868.dat": {
+      "n_researchers": 120,
+      "n_papers": 2160,
+      "num_var": 5971,
+      "status": "integer optimal solution",
+      "time": 0.125,
+      "deterministic_time": 114.45703029632568,
+      "objective_value": 2583.0
+   },
+   "new_assegnamento_120_2640_0_10_3270.dat": {
+      "n_researchers": 120,
+      "n_papers": 2640,
+      "num_var": 8085,
+      "status": "integer optimal solution",
+      "time": 0.0929999999998472,
+      "deterministic_time": 79.12233352661133,
+      "objective_value": 2690.0
+   },
+   "new_assegnamento_140_840_0_10_8695.dat": {
+      "n_researchers": 140,
+      "n_papers": 840,
+      "num_var": 3048,
+      "status": "integer optimal solution",
+      "time": 0.04699999999957072,
+      "deterministic_time": 29.811723709106445,
+      "objective_value": 2629.0
+   },
+   "new_assegnamento_140_1400_0_10_5415.dat": {
+      "n_researchers": 140,
+      "n_papers": 1400,
+      "num_var": 4726,
+      "status": "integer optimal solution",
+      "time": 0.10900000000037835,
+      "deterministic_time": 84.78982543945312,
+      "objective_value": 2848.0
+   },
+   "new_assegnamento_140_1960_0_10_1614.dat": {
+      "n_researchers": 140,
+      "n_papers": 1960,
+      "num_var": 7052,
+      "status": "integer optimal solution",
+      "time": 0.15599999999994907,
+      "deterministic_time": 134.01183795928955,
+      "objective_value": 2997.0
+   },
+   "new_assegnamento_140_2520_0_10_9844.dat": {
+      "n_researchers": 140,
+      "n_papers": 2520,
+      "num_var": 9179,
+      "status": "integer optimal solution",
+      "time": 0.18800000000010186,
+      "deterministic_time": 175.51011276245117,
+      "objective_value": 3080.0
+   },
+   "new_assegnamento_140_3080_0_10_607.dat": {
+      "n_researchers": 140,
+      "n_papers": 3080,
+      "num_var": 10613,
+      "status": "integer optimal solution",
+      "time": 0.125,
+      "deterministic_time": 98.45044136047363,
+      "objective_value": 3162.0
+   }
+}

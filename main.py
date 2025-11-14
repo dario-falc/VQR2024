@@ -2,13 +2,7 @@ import os
 import json
 import networkx as nx
 from docplex.mp.model import Model
-import re
-
-def sorted_alphanumeric(data):
-    convert = lambda text: int(text) if text.isdigit() else text.lower()
-    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
-    return sorted(data, key=alphanum_key)
-
+from utility.functions import sorted_alphanumeric
 
 def init_graph(file_path):
     GENERATION_PARAMETERS = {}
@@ -19,8 +13,8 @@ def init_graph(file_path):
     GRAPH_DATA["papers"] = []
     GRAPH_DATA["scored_edges"] = {}
 
+    cur_line=1
     with open(file_path, "r") as f:
-        cur_line=1
         
         # Get data generation parameters (first 10 lines)
         for line in f:
@@ -28,7 +22,11 @@ def init_graph(file_path):
             
             if cur_line <= 10:
                 k, v = l.split(": ")
-                GENERATION_PARAMETERS[k] = float(v) if k == "RDensity" else int(v)           
+                if v == "None":
+                    GENERATION_PARAMETERS[k] = None
+                
+                else:
+                    GENERATION_PARAMETERS[k] = float(v) if k == "RDensity" else int(v)           
                 cur_line+=1
                 continue
                     
@@ -52,6 +50,27 @@ def init_graph(file_path):
     return G, GRAPH_DATA, GENERATION_PARAMETERS
 
 
+def solution_to_txt(data_dir, solutions_dir, instance_name, solution_variables):
+    assignments = {}
+    pairs = []
+    for v in solution_variables:
+        r, p = v[2:].split("_")
+        pairs.append((r, p))
+
+    for r, p in pairs:
+        if r not in assignments:
+            assignments[r] = []
+        assignments[r].append(p)
+
+
+    with open(os.path.join(solutions_dir, data_dir + "_solutions.txt"), "a") as f:
+        f.write(instance_name + "\n")
+        
+        for r, p in assignments.items():
+            f.write(f"{r}: {', '.join(p)}\n")
+        f.write("\n")
+    
+
 def solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS):
     RESULTS = {}
     
@@ -69,9 +88,8 @@ def solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS):
     scores = GRAPH_DATA["scored_edges"]
     
     ## Variabili
-    # x = vqr_model.binary_var_list(G.edges, name="x")
     x = vqr_model.binary_var_dict(G.edges, name="x")
-
+    
     ## Vincoli
     # Ad ogni ricercatore deve essere assegnato almeno 1 paper
     vqr_model.add_constraints((sum(x.get((r, p), 0) for p in papers) >= 1
@@ -97,50 +115,77 @@ def solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS):
     obj_fn = sum(scores.get((r, p), 0) * x.get((r, p), 0) for r in researchers for p in papers)
     vqr_model.set_objective("max", obj_fn)
 
-    # print("INFORMATION:")
-    # vqr_model.print_information()
-    
+
     ## Soluzione
     vqr_model.solve()
+
+
+    # print("INFORMATION:")
+    # vqr_model.print_information()    
     
     # print("STATUS:")
     # print(vqr_model.solve_details)
-    
+        
     # print("RESULTS:")
     # vqr_model.print_solution()
-    
+
+    # solution_variables = ""
+    solution_variables = []
+    for v in vqr_model.iter_binary_vars():
+        if v.solution_value > 0.9:
+            # solution_variables += v.name + ", " 
+            solution_variables.append(v.name) 
+
+
     # RESULTS["graph"] = G
     RESULTS["n_researchers"] = n_r
     RESULTS["n_papers"] = n_p
     RESULTS["num_var"] = vqr_model.number_of_variables
-    RESULTS["time"] = vqr_model.solve_details.time
-    RESULTS["deterministic_time"] = vqr_model.solve_details.deterministic_time
+    RESULTS["status"] = vqr_model.solve_details.status
+    RESULTS["time"] = vqr_model.solve_details.time                                  # wall clock time (in seconds)
+    RESULTS["deterministic_time"] = vqr_model.solve_details.deterministic_time      # CPU time (in ticks)
     RESULTS["objective_value"] = vqr_model.objective_value
-    # RESULTS["solution"] = vqr_model.solution
-    
-    return RESULTS
+
+    return RESULTS, solution_variables
+
+
+# def main():
+#     instance_name = "VQR_50_200_0.30_0_10_4070.dat"
+#     file_path = os.path.join("data", instance_name)
+#     G, GRAPH_DATA, GENERATION_PARAMETERS = init_graph(file_path)
+#     solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS)
 
 
 def main():
     all_results = {}
-    solve_n_times = 1
     
-    problem_instances = sorted_alphanumeric(os.listdir("data"))
+    results_dir = "results"
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
+
+    solutions_dir = "solutions"
+    if not os.path.exists(solutions_dir):
+        os.makedirs(solutions_dir)
+
+    ## Data directory
+    data_dir = "data"                       # nuove istanze
+    # data_dir = "old_data_converted"       # vecchie istanze
+    
+    
+    problem_instances = sorted_alphanumeric(os.listdir(data_dir))
     for instance_name in problem_instances:
-        print(f"Evaluating instance: {instance_name}")    
-        file_path = os.path.join("data", instance_name)
+        print(f"Evaluating instance: {instance_name}")
+        file_path = os.path.join(data_dir, instance_name)
         
         G, GRAPH_DATA, GENERATION_PARAMETERS = init_graph(file_path)
         
-        instance_results = []
-        [instance_results.append(solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS)) for _ in range(solve_n_times)]
-        
-        # [print(elem) for elem in instance_results]
-        
-        all_results[instance_name] = instance_results
+        all_results[instance_name], solution_variables = solve_instance(instance_name, G, GRAPH_DATA, GENERATION_PARAMETERS)
     
-        with open("results.json", "w") as f:
+        with open(os.path.join(results_dir, data_dir + "_results.json"), "w") as f:
             json.dump(all_results, f, indent=3, separators=(',', ': '))
+
+        solution_to_txt(data_dir, solutions_dir, instance_name, solution_variables)
+
 
 
 if __name__ == "__main__":
