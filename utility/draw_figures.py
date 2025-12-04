@@ -13,6 +13,7 @@ plt.show()
 
 ### Draw bipartite graph (per immagini tesi)
 ## METODO 1
+# researchers, papers = bipartite.sets(G)
 # nx.draw_networkx(
 #     G,
 #     pos = nx.drawing.layout.bipartite_layout(G, researchers), 
